@@ -6,6 +6,8 @@ import { Box } from "@mui/system";
 import { getFileFromSrc } from "../src/getFileFromSrc";
 import { uploadFiles } from "../src/uploadFiles";
 import { LoadingButton } from "@mui/lab";
+import { Prisma } from ".prisma/client";
+import { useRouter } from "next/dist/client/router";
 
 const StyledPaper = styled(Paper)``;
 
@@ -49,16 +51,26 @@ export default function CreateFlashcard() {
 
   const disabled = !frontImage || !backImage || !title;
 
+  const router = useRouter();
+
   const uploadImage = useCallback(async () => {
     if (!disabled) {
       setLoading(true);
       const frontImageFile = await getFileFromSrc(frontImage, title);
       const backImageFile = await getFileFromSrc(backImage, title);
       const { imageUrls } = await uploadFiles([frontImageFile, backImageFile]);
-      setLoading(false);
-      console.log(imageUrls);
+      const data: Prisma.FlashcardCreateInput = {
+        title,
+        frontImageUrl: imageUrls[0],
+        backImageUrl: imageUrls[1],
+      };
+      await fetch("/api/flashcard/create", {
+        body: JSON.stringify(data),
+        method: "post",
+      });
+      router.push("/");
     }
-  }, [frontImage, backImage, disabled]);
+  }, [frontImage, backImage, disabled, title]);
 
   return (
     <StyledPaper>

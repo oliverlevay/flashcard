@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/styled": "^11.6.0",
     "@mui/lab": "^5.0.0-alpha.57",
     "@mui/material": "latest",
     "@mui/styled-engine-sc": "latest",
+    "@prisma/client": "^3.5.0",
     "next": "latest",
     "next-transpile-modules": "latest",
     "react": "latest",
@@ -24,6 +26,7 @@
     "@types/react": "latest",
     "@types/styled-components": "latest",
     "babel-plugin-styled-components": "latest",
+    "prisma": "^3.5.0",
     "typescript": "latest"
   }
 }
