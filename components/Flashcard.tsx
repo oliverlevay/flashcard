@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import styled from "styled-components";
 import { Flashcard } from "lib/types";
+import { TABLET_MQ } from "lib/mediaQueries";
 
 const Container = styled(Stack)`
   display: flex;
@@ -15,15 +16,20 @@ const Flipcard = styled(Box)`
   perspective: 1000px;
 `;
 
-const FlipcardInner = styled(Box)`
+const FlipcardInner = styled<{ flipped: boolean }>(Box)`
   position: relative;
   width: 100%;
   height: 100%;
   text-align: center;
   transition: transform 0.8s;
   transform-style: preserve-3d;
-  ${Flipcard}:hover & {
-    transform: rotateY(-180deg);
+  ${TABLET_MQ} {
+    ${Flipcard}:hover & {
+      transform: rotateY(-180deg);
+    }
+  }
+  @media (max-width: 768px) {
+    ${({ flipped }) => flipped && "transform: rotateY(-180deg);"}
   }
 `;
 
@@ -43,11 +49,12 @@ const Back = styled(Card)`
 `;
 
 const FlashcardComponent = ({ flashcard }: { flashcard: Flashcard }) => {
+  const [flipped, setFlipped] = useState(false);
   return (
     <Container>
       <Typography fontSize={24}>{flashcard.title}</Typography>
-      <Flipcard>
-        <FlipcardInner>
+      <Flipcard onClick={() => setFlipped((state) => !state)}>
+        <FlipcardInner flipped={flipped}>
           <Front>
             <img
               style={{ border: "1px solid black", borderRadius: "10px" }}

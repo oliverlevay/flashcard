@@ -11,6 +11,7 @@ import FlashcardComponent from "./Flashcard";
 import Link from "next/link";
 import { useUser } from "@auth0/nextjs-auth0";
 import { CreateFlashcardInput } from "lib/types";
+import { TABLET_MQ } from "lib/mediaQueries";
 
 const StyledPaper = styled(Paper)``;
 
@@ -30,14 +31,14 @@ const CardCreator = styled(Box)`
   width: 100%;
   display: flex;
   flex-direction: column;
-  @media (min-width: 768px) {
+  ${TABLET_MQ} {
     flex-direction: row;
   }
 `;
 
 const ImageSelectorContainer = styled(Box)`
   margin-bottom: 2rem;
-  @media (min-width: 768px) {
+  ${TABLET_MQ} {
     margin: 0 1rem;
   }
 `;
