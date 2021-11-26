@@ -11,5 +11,4 @@ export type CreateFlashcardInput = {
   backImageUrl: string;
   createdAt?: string | Date | undefined;
   updatedAt?: string | Date | undefined;
-  deck?: Prisma.DeckCreateNestedOneWithoutFlashcardsInput | undefined;
 };

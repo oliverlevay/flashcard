@@ -114,7 +114,6 @@ export default function CreateFlashcard() {
                   authorId: 2,
                   createdAt: new Date(),
                   updatedAt: new Date(),
-                  deckId: 0,
                   author: {
                     id: 2,
                     createdAt: new Date(),
