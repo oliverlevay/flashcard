@@ -72,7 +72,7 @@ export default function CreateFlashcard() {
       });
       router.push("/");
     }
-  }, [frontImage, backImage, disabled, title]);
+  }, [disabled, frontImage, title, backImage, router]);
 
   return (
     <StyledPaper>

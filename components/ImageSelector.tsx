@@ -1,17 +1,14 @@
-import styled from "styled-components";
-import { Container, Paper, Stack, TextField } from "@mui/material";
+import { Stack, TextField } from "@mui/material";
 import {
   ChangeEvent,
   Dispatch,
   SetStateAction,
   useCallback,
   useEffect,
-  useRef,
   useState,
 } from "react";
 import ReactCrop, { Crop } from "react-image-crop";
 import { getCroppedImg } from "../src/getCroppedImg";
-import { getFileImage } from "../src/getFileImage";
 
 export default function ImageSelector({
   image,
@@ -33,13 +30,13 @@ export default function ImageSelector({
       const cropImage = await getCroppedImg(imageElement, crop as Crop);
       setImage(URL.createObjectURL(cropImage));
     }
-  }, [file, crop, imageElement]);
+  }, [file, imageElement, crop, setImage]);
 
   useEffect(() => {
     if (!image) {
       handleCropComplete();
     }
-  }, [file, imageElement, handleCropComplete]);
+  }, [file, imageElement, handleCropComplete, image]);
 
   useEffect(() => {
     if (file) {
@@ -48,7 +45,7 @@ export default function ImageSelector({
     } else {
       setImage("");
     }
-  }, [file]);
+  }, [file, handleCropComplete, setImage]);
 
   const handleFileChange = useCallback(
     (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -67,7 +64,7 @@ export default function ImageSelector({
         variant="standard"
         title="Upload a textfile"
         onChange={handleFileChange}
-        inputProps={{ accept: "image" }}
+        inputProps={{ accept: "image/jpeg" }}
       />
       {cropFile && (
         <ReactCrop

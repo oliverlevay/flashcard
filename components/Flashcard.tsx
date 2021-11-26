@@ -49,7 +49,7 @@ const FlashcardComponent = ({ flashcard }: { flashcard: Flashcard }) => {
       <Flipcard>
         <FlipcardInner>
           <Front border={1}>
-            <Image
+            <img
               src={flashcard.frontImageUrl}
               alt={flashcard.title}
               width={243}
@@ -57,7 +57,7 @@ const FlashcardComponent = ({ flashcard }: { flashcard: Flashcard }) => {
             />
           </Front>
           <Back border={1}>
-            <Image
+            <img
               src={flashcard.backImageUrl}
               alt={flashcard.title}
               width={243}

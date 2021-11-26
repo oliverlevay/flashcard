@@ -1,20 +1,15 @@
 import prisma from "lib/prisma";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-// POST /api/post
-// Required fields in body: title
-// Optional fields in body: content
+// POST /api/flashcard/create
+// Required fields in body: title, frontImageUrl, backImageUrl
 export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const {
-    title,
-    frontImageUrl,
-    backImageUrl,
-  }: { title: string; frontImageUrl: string; backImageUrl: string } =
-    JSON.parse(req.body);
-  const Flashcard = await prisma.flashcard.create({
+  const { title, frontImageUrl, backImageUrl } = JSON.parse(req.body);
+
+  const flashcard = await prisma.flashcard.create({
     data: {
       title,
       frontImageUrl,
@@ -22,5 +17,5 @@ export default async function handle(
     },
   });
 
-  res.json(Flashcard);
+  res.json(flashcard);
 }
