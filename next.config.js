@@ -4,6 +4,9 @@ const withTM = require("next-transpile-modules")([
 ]); // pass the modules you would like to see transpiled
 
 module.exports = withTM({
+  images: {
+    domains: ['res.cloudinary.com'],
+  },
   reactStrictMode: true,
   webpack: (config, { isServer }) => {
     config.resolve.alias = {

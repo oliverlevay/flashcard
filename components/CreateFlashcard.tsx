@@ -8,6 +8,8 @@ import { uploadFiles } from "../src/uploadFiles";
 import { LoadingButton } from "@mui/lab";
 import { Prisma } from ".prisma/client";
 import { useRouter } from "next/dist/client/router";
+import FlashcardComponent from "./Flashcard";
+import Link from "next/link";
 
 const StyledPaper = styled(Paper)``;
 
@@ -98,26 +100,41 @@ export default function CreateFlashcard() {
               <ImageSelector image={backImage} setImage={setBackImage} />
             </ImageSelectorContainer>
           </CardCreator>
-          {frontImage && backImage && (
-            <Preview>
-              <Stack sx={{ border: 1 }} marginBottom="0.5rem">
-                <img src={frontImage} width={200} />
-              </Stack>
-              <Stack sx={{ border: 1 }}>
-                <img src={backImage} width={200} />
-              </Stack>
+          <Preview>
+            {!disabled && (
+              <FlashcardComponent
+                flashcard={{
+                  id: 1,
+                  title,
+                  frontImageUrl: frontImage,
+                  backImageUrl: backImage,
+                }}
+              />
+            )}
+            <Stack flexDirection="row">
+              <Link href="/" passHref>
+                <LoadingButton
+                  loading={loading}
+                  variant="contained"
+                  style={{ margin: "2rem 0.5rem", marginBottom: 0 }}
+                  color="error"
+                  fullWidth
+                >
+                  Cancel
+                </LoadingButton>
+              </Link>
               <LoadingButton
                 loading={loading}
                 variant="contained"
-                style={{ marginTop: "2rem" }}
+                style={{ margin: "2rem 0.5rem", marginBottom: 0 }}
                 onClick={uploadImage}
                 disabled={disabled}
                 fullWidth
               >
                 Save
               </LoadingButton>
-            </Preview>
-          )}
+            </Stack>
+          </Preview>
         </StyledBox>
       </StyledStack>
     </StyledPaper>

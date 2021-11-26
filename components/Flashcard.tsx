@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Flashcard } from ".prisma/client";
 import React, { useState } from "react";
 import { Box, Stack, Typography } from "@mui/material";
@@ -6,8 +7,6 @@ import styled from "styled-components";
 const Container = styled(Stack)`
   display: flex;
   align-items: center;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
 `;
 
 const Flipcard = styled(Box)`
@@ -50,10 +49,20 @@ const FlashcardComponent = ({ flashcard }: { flashcard: Flashcard }) => {
       <Flipcard>
         <FlipcardInner>
           <Front border={1}>
-            <img src={flashcard.frontImageUrl} />
+            <Image
+              src={flashcard.frontImageUrl}
+              alt={flashcard.title}
+              width={243}
+              height={137}
+            />
           </Front>
           <Back border={1}>
-            <img src={flashcard.backImageUrl} />
+            <Image
+              src={flashcard.backImageUrl}
+              alt={flashcard.title}
+              width={243}
+              height={137}
+            />
           </Back>
         </FlipcardInner>
       </Flipcard>

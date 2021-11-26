@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
+import Head from "next/head";
 import { Container, Stack, Typography, Button } from "@mui/material";
 import React from "react";
 import { GetServerSideProps } from "next";
@@ -29,6 +30,9 @@ export const getServerSideProps: GetServerSideProps = async () => {
 export default function Index({ flashcards }: { flashcards: Flashcard[] }) {
   return (
     <StyledContainer>
+      <Head>
+        <title>Flashcards</title>
+      </Head>
       <Stack spacing={2} alignItems="center">
         <Typography variant="h2" textAlign="center">
           Flashcards
