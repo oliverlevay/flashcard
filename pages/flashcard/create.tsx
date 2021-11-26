@@ -3,10 +3,16 @@ import { Container, Stack, Typography } from "@mui/material";
 import CreateFlashcard from "components/CreateFlashcard";
 import React from "react";
 import Head from "next/head";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { GetServerSideProps } from "next";
 
 const StyledContainer = styled(Container)`
   padding: 3rem;
 `;
+
+export const getServerSideProps: GetServerSideProps = (ctx) => {
+  return withPageAuthRequired({ returnTo: "/flashcard/create" })(ctx);
+};
 
 export default function Index() {
   return (
