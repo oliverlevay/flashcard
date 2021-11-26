@@ -4,6 +4,7 @@ const withTM = require("next-transpile-modules")([
 ]); // pass the modules you would like to see transpiled
 
 module.exports = withTM({
+  target: "serverless",
   reactStrictMode: true,
   webpack: (config, { isServer }) => {
     config.resolve.alias = {
