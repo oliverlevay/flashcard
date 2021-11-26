@@ -10,9 +10,6 @@ module.exports = withTM({
       ...config.resolve.alias,
       "@mui/styled-engine": "@mui/styled-engine-sc",
     };
-    if (isServer) {
-      config.externals.push("_http_common");
-    }
     return config;
   },
 });
