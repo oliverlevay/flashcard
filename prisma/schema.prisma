@@ -10,9 +10,37 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Deck {
+  id         Int         @id @default(autoincrement())
+  name       String
+  flashcards Flashcard[]
+  createdAt  DateTime    @default(now()) @map(name: "created_at")
+  updatedAt  DateTime    @updatedAt @map(name: "updated_at")
+  User       User        @relation(fields: [userId], references: [id])
+  userId     Int
+}
+
 model Flashcard {
-  id            Int    @id @default(autoincrement())
+  id            Int      @id @default(autoincrement())
   title         String
   frontImageUrl String
   backImageUrl  String
+  author        User     @relation(fields: [authorId], references: [id])
+  authorId      Int
+  createdAt     DateTime @default(now()) @map(name: "created_at")
+  updatedAt     DateTime @updatedAt @map(name: "updated_at")
+  deck          Deck?    @relation(fields: [deckId], references: [id])
+  deckId        Int?
+}
+
+model User {
+  id         Int         @id @default(autoincrement())
+  name       String?
+  email      String?     @unique
+  createdAt  DateTime    @default(now()) @map(name: "created_at")
+  updatedAt  DateTime    @updatedAt @map(name: "updated_at")
+  decks      Deck[]
+  flashcards Flashcard[]
+
+  @@map(name: "users")
 }

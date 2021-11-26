@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^1.6.1",
     "@emotion/react": "^11.6.0",
     "@emotion/styled": "^11.6.0",
     "@mui/lab": "^5.0.0-alpha.57",
@@ -24,6 +25,7 @@
     "react-image-crop": "^9.0.5",
     "react-is": "^17.0.2",
     "styled-components": "^5.3.3",
+    "superjson": "^1.8.0",
     "swr": "^1.0.1"
   },
   "devDependencies": {
@@ -31,6 +33,7 @@
     "@types/react": "^17.0.37",
     "@types/styled-components": "^5.1.15",
     "babel-plugin-styled-components": "^2.0.1",
+    "babel-plugin-superjson-next": "^0.4.2",
     "eslint": "7.32.0",
     "eslint-config-next": "12.0.4",
     "prisma": "^3.5.0",

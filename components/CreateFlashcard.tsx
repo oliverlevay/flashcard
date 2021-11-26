@@ -6,10 +6,11 @@ import { Box } from "@mui/system";
 import { getFileFromSrc } from "../src/getFileFromSrc";
 import { uploadFiles } from "../src/uploadFiles";
 import { LoadingButton } from "@mui/lab";
-import { Prisma } from ".prisma/client";
 import { useRouter } from "next/dist/client/router";
 import FlashcardComponent from "./Flashcard";
 import Link from "next/link";
+import { useUser } from "@auth0/nextjs-auth0";
+import { CreateFlashcardInput } from "lib/types";
 
 const StyledPaper = styled(Paper)``;
 
@@ -55,13 +56,15 @@ export default function CreateFlashcard() {
 
   const router = useRouter();
 
+  const { user } = useUser();
+
   const uploadImage = useCallback(async () => {
     if (!disabled) {
       setLoading(true);
       const frontImageFile = await getFileFromSrc(frontImage, title);
       const backImageFile = await getFileFromSrc(backImage, title);
       const { imageUrls } = await uploadFiles([frontImageFile, backImageFile]);
-      const data: Prisma.FlashcardCreateInput = {
+      const data: CreateFlashcardInput = {
         title,
         frontImageUrl: imageUrls[0],
         backImageUrl: imageUrls[1],
@@ -108,6 +111,17 @@ export default function CreateFlashcard() {
                   title,
                   frontImageUrl: frontImage,
                   backImageUrl: backImage,
+                  authorId: 2,
+                  createdAt: new Date(),
+                  updatedAt: new Date(),
+                  deckId: 0,
+                  author: {
+                    id: 2,
+                    createdAt: new Date(),
+                    updatedAt: new Date(),
+                    name: user?.name || "Karl Kalas",
+                    email: user?.email || "karl.kalas@regnbagen.se",
+                  },
                 }}
               />
             )}

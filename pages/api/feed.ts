@@ -12,12 +12,17 @@ export default async function handle(
   let data = req.query;
   const limit = data?.limit ? Number(data.limit) : defaultInput.limit;
   const page = data?.page ? Number(data.page) : defaultInput.page;
+
   const flashcards = await prisma.flashcard.findMany({
     take: limit,
     skip: (page - 1) * limit,
     orderBy: {
       id: "desc",
     },
+    include: {
+      author: true,
+    },
   });
+
   res.json(flashcards);
 }

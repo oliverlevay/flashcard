@@ -3,6 +3,7 @@ import "react-image-crop/dist/ReactCrop.css";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 import type { AppProps } from "next/app";
+import { UserProvider } from "@auth0/nextjs-auth0";
 import Head from "next/head";
 import theme from "../src/theme";
 
@@ -20,7 +21,9 @@ export default function MyApp(props: AppProps) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Component {...pageProps} />
+        <UserProvider>
+          <Component {...pageProps} />
+        </UserProvider>
       </ThemeProvider>
     </React.Fragment>
   );

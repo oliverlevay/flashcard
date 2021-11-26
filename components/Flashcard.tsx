@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { Flashcard } from ".prisma/client";
 import React, { useState } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import styled from "styled-components";
+import { Flashcard } from "lib/types";
 
 const Container = styled(Stack)`
   display: flex;
@@ -48,16 +48,18 @@ const FlashcardComponent = ({ flashcard }: { flashcard: Flashcard }) => {
       <Typography fontSize={24}>{flashcard.title}</Typography>
       <Flipcard>
         <FlipcardInner>
-          <Front border={1}>
+          <Front>
             <img
+              style={{ border: "1px solid black", borderRadius: "10px" }}
               src={flashcard.frontImageUrl}
               alt={flashcard.title}
               width={243}
               height={137}
             />
           </Front>
-          <Back border={1}>
+          <Back>
             <img
+              style={{ border: "2px solid black", borderRadius: "10px" }}
               src={flashcard.backImageUrl}
               alt={flashcard.title}
               width={243}
@@ -66,6 +68,7 @@ const FlashcardComponent = ({ flashcard }: { flashcard: Flashcard }) => {
           </Back>
         </FlipcardInner>
       </Flipcard>
+      <Typography>Skapad av {flashcard.author.name}</Typography>
     </Container>
   );
 };
