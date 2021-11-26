@@ -1,0 +1,29 @@
+{
+  "name": "mathflash",
+  "version": "5.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@mui/lab": "^5.0.0-alpha.57",
+    "@mui/material": "latest",
+    "@mui/styled-engine-sc": "latest",
+    "next": "latest",
+    "next-transpile-modules": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-image-crop": "^9.0.5",
+    "react-is": "latest",
+    "styled-components": "latest"
+  },
+  "devDependencies": {
+    "@types/react": "latest",
+    "@types/styled-components": "latest",
+    "babel-plugin-styled-components": "latest",
+    "typescript": "latest"
+  }
+}
