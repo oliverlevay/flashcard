@@ -16,7 +16,11 @@ const Flipcard = styled(Box)`
   perspective: 1000px;
 `;
 
-const FlipcardInner = styled<{ flipped: boolean }>(Box)`
+interface PropsFlipcardInner {
+  readonly flipped: boolean;
+}
+
+const FlipcardInner = styled(Box)<PropsFlipcardInner>`
   position: relative;
   width: 100%;
   height: 100%;
