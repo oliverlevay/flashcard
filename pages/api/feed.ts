@@ -22,7 +22,16 @@ export default async function handle(
     include: {
       author: true,
     },
-  });
+    where: {
+      deleted: false,
+    }
+  })
+    .catch((e) => {
+      throw e
+    })
+    .finally(async () => {
+      await prisma.$disconnect()
+    });
 
   res.json(flashcards);
 }

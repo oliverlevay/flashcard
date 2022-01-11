@@ -11,17 +11,29 @@ datasource db {
   shadowDatabaseUrl = env("HEROKU_POSTGRESQL_CHARCOAL_URL")
 }
 
+model Tag {
+  id        Int      @id @default(autoincrement())
+  name      String
+  authorId  Int
+  author    User     @relation(fields: [authorId], references: [id])
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  Decks     Deck[]
+  deleted   Boolean  @default(false)
+}
+
 model Deck {
-  id         Int         @id @default(autoincrement())
-  name       String
-  flashcards Flashcard[] @relation(references: [id])
-  createdAt  DateTime    @default(now()) @map(name: "created_at")
-  updatedAt  DateTime    @updatedAt @map(name: "updated_at")
-  author     User        @relation(fields: [authorId], references: [id])
-  authorId   Int
-  likes      Int         @default(0)
-  likedBy    Int[]
-  tags       String[]
+  id             Int         @id @default(autoincrement())
+  name           String
+  flashcards     Flashcard[] @relation(references: [id])
+  createdAt      DateTime    @default(now()) @map(name: "created_at")
+  updatedAt      DateTime    @updatedAt @map(name: "updated_at")
+  author         User        @relation(fields: [authorId], references: [id])
+  authorId       Int
+  likes          Int         @default(0)
+  likedByUserIds Int[]
+  tags           Tag[]
+  deleted        Boolean     @default(false)
 }
 
 model Flashcard {
@@ -34,6 +46,7 @@ model Flashcard {
   createdAt     DateTime @default(now()) @map(name: "created_at")
   updatedAt     DateTime @updatedAt @map(name: "updated_at")
   decks         Deck[]   @relation(references: [id])
+  deleted       Boolean  @default(false)
 }
 
 model User {
@@ -44,6 +57,8 @@ model User {
   updatedAt  DateTime    @updatedAt @map(name: "updated_at")
   decks      Deck[]
   flashcards Flashcard[]
+  deleted    Boolean     @default(false)
+  Tag        Tag[]
 
   @@map(name: "users")
 }

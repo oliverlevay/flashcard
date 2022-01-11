@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { Container, Stack, Typography } from '@mui/material';
-import CreateFlashcard from 'components/CreateFlashcard';
 import React, { useEffect } from 'react';
 import Head from 'next/head';
 import { useUser } from '@auth0/nextjs-auth0';
 import { goToLogin } from 'lib/authUtils';
+import CreateDeck from 'components/CreateDeck';
 
 const StyledContainer = styled(Container)`
   padding: 3rem;
@@ -20,11 +20,11 @@ export default function Create() {
   return (
     <StyledContainer maxWidth="sm">
       <Head>
-        <title>Create flashcard</title>
+        <title>Create deck</title>
       </Head>
       <Stack spacing={2}>
-        <Typography variant="h2">Create a flashcard</Typography>
-        <CreateFlashcard />
+        <Typography variant="h2">Create a deck</Typography>
+        <CreateDeck />
       </Stack>
     </StyledContainer>
   );

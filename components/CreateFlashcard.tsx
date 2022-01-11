@@ -1,17 +1,17 @@
-import styled from "styled-components";
-import { Paper, Stack, TextField, Typography } from "@mui/material";
-import React, { useCallback, useState } from "react";
-import ImageSelector from "./ImageSelector";
-import { Box } from "@mui/system";
-import { getFileFromSrc } from "../src/getFileFromSrc";
-import { uploadFiles } from "../src/uploadFiles";
-import { LoadingButton } from "@mui/lab";
-import { useRouter } from "next/dist/client/router";
-import FlashcardComponent from "./Flashcard";
-import Link from "next/link";
-import { useUser } from "@auth0/nextjs-auth0";
-import { CreateFlashcardInput } from "lib/types";
-import { TABLET_MQ } from "lib/mediaQueries";
+import styled from 'styled-components';
+import { Paper, Stack, TextField, Typography } from '@mui/material';
+import React, { useCallback, useState } from 'react';
+import ImageSelector from './ImageSelector';
+import { Box } from '@mui/system';
+import { getFileFromSrc } from '../src/getFileFromSrc';
+import { uploadFiles } from '../src/uploadFiles';
+import { LoadingButton } from '@mui/lab';
+import { useRouter } from 'next/dist/client/router';
+import FlashcardComponent from './Flashcard';
+import Link from 'next/link';
+import { useUser } from '@auth0/nextjs-auth0';
+import { CreateFlashcardInput } from 'lib/types';
+import { TABLET_MQ } from 'lib/mediaQueries';
 
 const StyledPaper = styled(Paper)``;
 
@@ -48,9 +48,9 @@ const Preview = styled(Stack)`
 `;
 
 export default function CreateFlashcard() {
-  const [frontImage, setFrontImage] = useState<string>("");
-  const [backImage, setBackImage] = useState<string>("");
-  const [title, setTitle] = useState("");
+  const [frontImage, setFrontImage] = useState<string>('');
+  const [backImage, setBackImage] = useState<string>('');
+  const [title, setTitle] = useState('');
   const [loading, setLoading] = useState(false);
 
   const disabled = !frontImage || !backImage || !title;
@@ -70,11 +70,11 @@ export default function CreateFlashcard() {
         frontImageUrl: imageUrls[0],
         backImageUrl: imageUrls[1],
       };
-      await fetch("/api/flashcard/create", {
+      await fetch('/api/flashcard/create', {
         body: JSON.stringify(data),
-        method: "post",
+        method: 'post',
       });
-      router.push("/");
+      router.push('/');
     }
   }, [disabled, frontImage, title, backImage, router]);
 
@@ -89,6 +89,7 @@ export default function CreateFlashcard() {
         <StyledBox spacing={2}>
           <TextField
             label="Title"
+            inputProps={{ maxLength: 20 }}
             variant="standard"
             fullWidth
             value={title}
@@ -108,6 +109,7 @@ export default function CreateFlashcard() {
             {!disabled && (
               <FlashcardComponent
                 flashcard={{
+                  deleted: false,
                   id: 1,
                   title,
                   frontImageUrl: frontImage,
@@ -116,11 +118,12 @@ export default function CreateFlashcard() {
                   createdAt: new Date(),
                   updatedAt: new Date(),
                   author: {
+                    deleted: false,
                     id: 2,
                     createdAt: new Date(),
                     updatedAt: new Date(),
-                    name: user?.name || "Karl Kalas",
-                    email: user?.email || "karl.kalas@regnbagen.se",
+                    name: user?.name || 'Karl Kalas',
+                    email: user?.email || 'karl.kalas@regnbagen.se',
                   },
                 }}
               />
@@ -130,7 +133,7 @@ export default function CreateFlashcard() {
                 <LoadingButton
                   loading={loading}
                   variant="contained"
-                  style={{ margin: "2rem 0.5rem", marginBottom: 0 }}
+                  style={{ margin: '2rem 0.5rem', marginBottom: 0 }}
                   color="error"
                   fullWidth
                 >
@@ -140,7 +143,7 @@ export default function CreateFlashcard() {
               <LoadingButton
                 loading={loading}
                 variant="contained"
-                style={{ margin: "2rem 0.5rem", marginBottom: 0 }}
+                style={{ margin: '2rem 0.5rem', marginBottom: 0 }}
                 onClick={uploadImage}
                 disabled={disabled}
                 fullWidth

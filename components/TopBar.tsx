@@ -1,30 +1,40 @@
-import styled from "styled-components";
-import { Button, Stack, Typography } from "@mui/material";
-import { useUser } from "@auth0/nextjs-auth0";
-import { goToLogin, logout } from "lib/authUtils";
+import styled from 'styled-components';
+import { Button, Stack, Typography } from '@mui/material';
+import { useUser } from '@auth0/nextjs-auth0';
+import { goToLogin, logout } from 'lib/authUtils';
+import Link from 'next/link';
+import useMe from 'hooks/me/useMe';
 
 const TopBarContainer = styled(Stack)`
   display: flex;
-  align-items: flex-end;
-  padding: 2rem;
+  justify-content: space-between;
+  padding: 2rem 0;
 `;
 
 const TopBar = () => {
+  const { data: me } = useMe();
   const { user } = useUser();
   return (
-    <TopBarContainer>
+    <TopBarContainer direction="row">
+      <Stack direction="row">
+        <Link href={`/`} passHref>
+          <Button style={{ width: 'fit-content' }}>Home</Button>
+        </Link>
+      </Stack>
       {!user && (
-        <Button style={{ width: "fit-content" }} onClick={() => goToLogin()}>
+        <Button style={{ width: 'fit-content' }} onClick={() => goToLogin()}>
           Login
         </Button>
       )}
       {user && (
-        <>
-          <Button style={{ width: "fit-content" }} onClick={() => logout()}>
+        <Stack direction="row">
+          <Link href={`/user/${me?.id}`} passHref>
+            <Button style={{ width: 'fit-content' }}>My profile</Button>
+          </Link>
+          <Button style={{ width: 'fit-content' }} onClick={() => logout()}>
             Logout
           </Button>
-          <Typography>{user.name}</Typography>
-        </>
+        </Stack>
       )}
     </TopBarContainer>
   );
